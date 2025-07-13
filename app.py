@@ -3,15 +3,12 @@ import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
 
-# ========================
-# CONFIGURACIÓN INICIAL
-# ========================
 df = pd.read_csv("bestsellers_preprocesado.csv")
 st.set_page_config(page_title="Dashboard de Libros Amazon", layout="wide")
 
-# ========================
+
 # SIDEBAR – FILTROS GLOBALES
-# ========================
+
 st.sidebar.title("📊 Filtros")
 selected_year = st.sidebar.selectbox("Año", sorted(df['Year'].unique()), index=0)
 selected_genre = st.sidebar.multiselect("Género", df['Genre'].unique(), default=df['Genre'].unique())
@@ -34,9 +31,9 @@ col3.metric("⭐ Rating Promedio", f"{df_filtered['User Rating'].mean():.2f}")
 col4.metric("🗣️ Reviews Promedio", int(df_filtered['Reviews'].mean()))
 st.markdown("---")
 
-# ========================
+
 # GRÁFICOS PRINCIPALES
-# ========================
+
 
 # 1. Distribución de precios (para ejecutivos)
 st.subheader("🧮 Distribución de Libros según su Rango de Precio")
@@ -114,9 +111,9 @@ Sin embargo, *Fiction* sobresale levemente por encima de *Non Fiction* en promed
 """)
 
 
-# ========================
+
 # FUNCIONALIDADES AVANZADAS
-# ========================
+
 
 # ========================
 # Gráfico: Autores más frecuentes en el Top + Interpretación ejecutiva
@@ -155,9 +152,9 @@ Explorar alianzas con estos autores para nuevos lanzamientos, traducciones o cam
 Además, sirven como referencia de **benchmark creativo**: estilo, temas, formatos y portadas que generan éxito repetido.
 """)
 
-# ========================
+
 # Gráfico: Libros más recurrentes en el Top (versión sin duplicados)
-# ========================
+
 st.subheader("🏆 Libros más recurrentes en el Top")
 
 # Agrupar libros por nombre base (primera parte del título) + autor
@@ -205,9 +202,9 @@ Son títulos con una **demanda sostenida en el tiempo**, lo cual indica alto val
 Analizar estos títulos y autores para campañas de marketing, bundles temáticos, traducciones, o nuevos lanzamientos basados en su estilo o enfoque.
 """)
 
-# ========================
+
 # 6. Evolución del rating promedio (visión ejecutiva)
-# ========================
+
 st.subheader("📈 Tendencia del Rating Promedio por Año")
 
 # Datos
@@ -324,7 +321,7 @@ st.plotly_chart(fig_auth, use_container_width=True)
 st.markdown("📊 **Resumen de autores destacados:**")
 st.dataframe(author_summary.sort_values("Prom_Rating", ascending=False).reset_index(drop=True), use_container_width=True)
 
-# ========================
+
 
 # Sección: Distribución de Popularidad por Género
 st.subheader("📊 Distribución de Popularidad por Género")
@@ -368,9 +365,7 @@ Este gráfico muestra cómo se distribuyen los niveles de popularidad de los lib
 - Explorar oportunidades para reposicionar títulos Non Fiction con baja popularidad mediante promociones o nuevas ediciones.
 """)
 
-# ========================
 
-# ========================
 # Sección: Popularidad según Categoría de Precio
 st.subheader("💰 Popularidad según Categoría de Precio")
 
@@ -413,7 +408,7 @@ Este análisis muestra cómo varía la popularidad de los libros según su rango
 - Evaluar posibles ajustes de precio en libros **caros** que tengan baja o media popularidad.
 """)
 
-# ========================
+
 st.subheader("🎯 Distribución de Ratings por Género")
 
 # Reorganizar los datos para barras
@@ -432,7 +427,6 @@ fig_bar = px.bar(
 fig_bar.update_layout(title_x=0.3)
 st.plotly_chart(fig_bar, use_container_width=True)
 
-# ========================
 
 # 10. Hipótesis evaluadas
 st.subheader("📌 Hipótesis Evaluadas")
@@ -449,9 +443,4 @@ Todos estos puntos han sido validados visualmente en el dashboard.
 st.subheader("📥 Descargar datos filtrados")
 st.download_button("📂 Descargar CSV filtrado", df_filtered.to_csv(index=False).encode("utf-8"), file_name="datos_filtrados.csv")
 
-# ========================
-# FOOTER
-# ========================
-st.markdown("---")
-st.markdown("#### Trabajo Final – Curso CC211: Visualización de Datos")
-st.markdown("**Alumno:** Collecen Rodríguez  \n**Rol:** Líder del equipo de analítica avanzada – Amazon  \n**Fecha:** Julio 2025")
+
